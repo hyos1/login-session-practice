@@ -12,15 +12,34 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
 
-    @GetMapping("/")
+    private final MemberRepository memberRepository;
+
+    //    @GetMapping("/")
     public String home() {
         return "home";
+    }
+
+    @GetMapping("/")
+    public String homeLogin(@CookieValue(name = "memberId", required = false) Long memberId, Model model) {
+        if (memberId == null) {
+            return "home";
+        }
+
+        Member loginMember = memberRepository.findById(memberId);
+        if (loginMember == null) {
+            return "home";
+        }
+
+        model.addAttribute("member", loginMember);
+        return "loginHome";
     }
 }
