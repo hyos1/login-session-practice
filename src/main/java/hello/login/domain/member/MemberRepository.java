@@ -42,7 +42,7 @@ public class MemberRepository {
         return new ArrayList<>(store.values());
     }
 
-    public void clear() {
+    public void clearStore() {
         store.clear();
     }
 }
