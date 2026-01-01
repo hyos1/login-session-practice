@@ -111,6 +111,16 @@ public class LoginController {
         return "redirect:/";
     }
 
+    @PostMapping("/logout")
+    public String logoutV3(HttpServletRequest request) {
+        //세션이 없을 때 새로 생성하지 않는다.
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate(); //세션 안에 있는 모든 데이터 삭제
+        }
+        return "redirect:/";
+    }
+
     private static void expireCookie(HttpServletResponse response, String cookieName) {
         Cookie cookie = new Cookie(cookieName, null);
         cookie.setMaxAge(0);

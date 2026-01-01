@@ -58,4 +58,24 @@ public class HomeController {
         model.addAttribute("member", member);
         return "loginHome";
     }
+
+//    @GetMapping("/")
+    public String homeLoginV3(HttpServletRequest request, Model model) {
+
+        //세션 없을 시 생성하지 않는다.
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "home";
+        }
+
+        //로그인
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if (loginMember == null) {
+            return "home";
+        }
+
+        //세션이 유지되면 로그인으로 이동
+        model.addAttribute("member", loginMember);
+        return "loginHome";
+    }
 }
