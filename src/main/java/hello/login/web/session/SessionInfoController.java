@@ -30,6 +30,5 @@ public class SessionInfoController {
         log.info("isNew={}", session.isNew());
 
         return "세션 출력";
-
     }
 }
