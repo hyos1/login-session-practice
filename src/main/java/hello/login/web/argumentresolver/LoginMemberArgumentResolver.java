@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
-public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolver {
+public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolver{
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -26,11 +26,10 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
 
-        log.info("resolveArgument 실행");
-
-        HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
+        log.info("resolverArgument 실행");
+        HttpServletRequest request = (HttpServletRequest) nativeWebRequest.getNativeRequest();
         HttpSession session = request.getSession(false);
         if (session == null) {
             return null;
